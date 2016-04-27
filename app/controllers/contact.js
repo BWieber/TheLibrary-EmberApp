@@ -17,10 +17,20 @@ export default Ember.Controller.extend({
     actions: {
 
       saveMessage() {
-        alert(`Saving of the your email: (${this.get('emailAddress')})\nand message: (${this.get('message')}) is in progress.`);
-        this.set('responseMessage', `Thank you! We've just saved your email address: (${this.get('emailAddress')}) and message: (${this.get('message')})`);
-        this.set('emailAddress', '');
-        this.set('message', '');
+        const email = this.get('emailAddress');
+
+        const message = this.get('message');
+
+        const contactMessage = this.store.createRecord('contact', {
+          email: email,
+          message: message
+        });
+
+        contactMessage.save().then((response) => {
+          this.set('responseMessage', `Thank you! We have saved your message with the following id: ${response.get('id')}`);
+          this.set('emailAddress', '');
+          this.set('message', '');
+        });
       }
     }
 });
