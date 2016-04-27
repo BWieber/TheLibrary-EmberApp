@@ -1,0 +1,8 @@
+{
+  "firebase": "the-library",
+  "public": "dist",
+  "rewrites": [{
+    "source": "**",
+    "destination": "/index.html"
+  }]
+}
